@@ -1,5 +1,4 @@
 import math
-import numpy as np
 import os
 
 import psycopg2
@@ -60,12 +59,11 @@ class VectorDataset():
     @staticmethod
     def search(text: str, limit: int = 3) -> list:
         emb = Embedder.embedd(text)
-        embedding_array = np.array(emb)
         register_vector(VectorDataset.conn)
         cur = VectorDataset.conn.cursor()
         cur.execute(
             f"SELECT content FROM embeddings ORDER BY embedding <=> %s LIMIT {limit}",
-            (embedding_array,),
+            (emb,),
         )
         top_content = cur.fetchall()
         return top_content

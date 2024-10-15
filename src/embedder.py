@@ -1,11 +1,8 @@
 import os
 
-import numpy as np
 from langchain_openai import OpenAIEmbeddings
-
-nltk.download('punkt')
-
 from langchain.text_splitter import RecursiveCharacterTextSplitter
+
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
@@ -34,7 +31,7 @@ class DocEmbedder:
 
     def get(self) -> list:
         embeddings_list, text_list = self.create_embeddings(self.text)
-        return [(np.array(embedding), text,) for embedding, text in zip(embeddings_list, text_list)]
+        return [(embedding, text,) for embedding, text in zip(embeddings_list, text_list)]
 
     def create_embeddings(self, text: str) -> list:
         embedding_chunk_list = []

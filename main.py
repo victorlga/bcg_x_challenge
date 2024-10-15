@@ -1,4 +1,3 @@
-
 from dataset import VectorDataset
 from document import Document
 from embedder import DocEmbedder
