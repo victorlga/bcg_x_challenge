@@ -41,8 +41,17 @@ class DocEmbedder:
         text_chunk_list = []
         text_split = self.text_splitter.split_text(text)
 
-        for t in text_split:
-            text_chunk_list.append(t)
+        for i, t in enumerate(text_split):
+            # Build the broader context: concatenate previous, current, and next text chunks if they exist
+            previous_chunk = text_split[i - 1] if i > 0 else ''
+            current_chunk = t
+            next_chunk = text_split[i + 1] if i < len(text_split) - 1 else ''
+            
+            # Concatenate for broader context
+            broader_context = previous_chunk + current_chunk + next_chunk
+            text_chunk_list.append(broader_context)
+
+            # Generate embedding for the current chunk only (t)
             emb = Embedder.embedd(t)
             embedding_chunk_list.append(emb)
 
