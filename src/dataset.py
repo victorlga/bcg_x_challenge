@@ -1,5 +1,6 @@
 import math
 import numpy as np
+import os
 
 import psycopg2
 from psycopg2.extras import execute_values
@@ -7,17 +8,13 @@ from pgvector.psycopg2 import register_vector
 
 from embedder import Embedder
 
+DATABASE_URL = os.environ.get('DATABASE_URL')
+
 class VectorDataset():
 
     @staticmethod
     def create() -> None:
-        conn = psycopg2.connect(
-            dbname='postgres',          # Default DB created by PostgreSQL Docker image
-            user='postgres',            # Default user for PostgreSQL
-            password='mysecretpassword', # The password you provided in the Docker run command
-            host='localhost',           # Since it's running locally inside Docker
-            port='5432'                 # Default PostgreSQL port
-        )
+        conn = psycopg2.connect(DATABASE_URL)
 
         cur = conn.cursor()
 
