@@ -11,7 +11,7 @@ if OPENAI_API_KEY is None:
     raise ValueError("OPENAI_API_KEY environment variable not set")
 
 class Embedder:
-    
+
     @staticmethod
     def embedd(text: str):
         embedding = OpenAIEmbeddings(

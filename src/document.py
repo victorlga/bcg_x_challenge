@@ -2,7 +2,7 @@ import os
 
 from langchain_community.document_loaders import PyMuPDFLoader
 
-from page import Page
+from src.page import Page
 
 class Document:
 
@@ -28,7 +28,7 @@ class Document:
         main_data = self.data[self.start:self.end]
 
         for page_data in main_data:
-            page = Page(self, page_data)
+            page = Page(page_data)
             page_content = page.clean()
 
             # Append the cleaned content to the relevant section title
